@@ -5,6 +5,7 @@
   },
   "dependencies": {
     "@azure/event-hubs": "^5.8.0",
+    "@inrixia/helpers": "^1.23.3",
     "dotenv": "^16.0.1"
   }
 }

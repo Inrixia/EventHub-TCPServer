@@ -1,13 +1,13 @@
 import { EventHubConsumerClient, latestEventPosition, ReceivedEventData } from "@azure/event-hubs";
 import { createServer, Socket } from "net";
-import { config } from "dotenv";
+import { envOrThrow } from "@inrixia/helpers/object";
 
+import { config } from "dotenv";
 config();
 
-const { CONNECTION_STRING, EVENT_HUB_NAME, TCP_PORT } = process.env;
-if (CONNECTION_STRING === undefined) throw new Error("Enviroment variable CONNECTION_STRING is not defined");
-if (EVENT_HUB_NAME === undefined) throw new Error("Enviroment variable EVENT_HUB_NAME is not defined");
-if (TCP_PORT === undefined) throw new Error("Enviroment variable TCP_PORT is not defined");
+const TCP_PORT = envOrThrow("TCP_PORT");
+const CONNECTION_STRING = envOrThrow("CONNECTION_STRING");
+const EVENT_HUB_NAME = envOrThrow("EVENT_HUB_NAME");
 
 const sockets: Record<string, Socket> = {};
 createServer()
