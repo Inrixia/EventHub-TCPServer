@@ -6,8 +6,8 @@ import { config } from "dotenv";
 config();
 
 const TCP_PORT = envOrThrow("TCP_PORT");
-const CONNECTION_STRING = envOrThrow("CONNECTION_STRING");
-const EVENT_HUB_NAME = envOrThrow("EVENT_HUB_NAME");
+const EVENTHUB_CONNECTION_STRING = envOrThrow("EVENTHUB_CONNECTION_STRING");
+const EVENTHUB_NAME = envOrThrow("EVENTHUB_NAME");
 
 const sockets: Record<string, Socket> = {};
 createServer()
@@ -42,7 +42,7 @@ const reduceEvents = (events: ReceivedEventData[]) => {
 };
 
 const main = async () => {
-	const client = new EventHubConsumerClient("$Default", CONNECTION_STRING, EVENT_HUB_NAME);
+	const client = new EventHubConsumerClient("$Default", EVENTHUB_CONNECTION_STRING, EVENTHUB_NAME);
 	const sub = client.subscribe(
 		{
 			processEvents: async (events) => {
